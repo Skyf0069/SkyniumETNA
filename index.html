@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,13 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skynium ETNA</title>
 
-    <!-- SDK Auth0 -->
-    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
+    <script src="https://skynium.fr/ressources/academy/auth0-spa-js.production.js"></script>
     
-    <!-- Font Awesome (pour les icônes Jira, Confluence, etc.) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://skynium.fr/ressources/fontawesome/css/all.min.css">
     
-    <!-- Favicon (on garde la configuration complète) -->
     <link rel="icon" type="image/png" href="/ressources/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/ressources/favicon/favicon.svg" />
     <link rel="shortcut icon" href="/ressources/favicon/favicon.ico" />
@@ -22,9 +20,6 @@
     <meta name="theme-color" content="#ffffff">
 
     <style>
-        /* ======================================= */
-        /* POLICES ET STYLE DE BASE
-        /* ======================================= */
         :root {
             --primary: #1D0469;
             --secondary: #FA5DFF;
@@ -39,7 +34,6 @@
             margin: 0;
             padding: 0;
             color: var(--white);
-            /* Le fond diagonal de la capture d'écran */
             background: linear-gradient(110deg, var(--dark-bg) 55%, var(--secondary) 80%, var(--tertiary) 100%);
             min-height: 100vh;
         }
@@ -48,9 +42,6 @@
             display: none !important;
         }
 
-        /* ======================================= */
-        /* ÉTATS DE CONNEXION (LOADING / LOGGED OUT)
-        /* ======================================= */
         .auth-container {
             display: flex;
             flex-direction: column;
@@ -58,7 +49,7 @@
             align-items: center;
             min-height: 100vh;
             text-align: center;
-            background: var(--dark-bg); /* Fond uni pour l'écran de login */
+            background: var(--dark-bg);
         }
 
         .auth-box {
@@ -98,9 +89,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* ======================================= */
-        /* ÉTAT CONNECTÉ (LE HUB ETNA)
-        /* ======================================= */
         .page-container {
             display: flex;
             flex-direction: column;
@@ -108,7 +96,6 @@
             padding: 2rem 5%;
         }
 
-        /* --- Header --- */
         header {
             display: flex;
             justify-content: space-between;
@@ -122,7 +109,7 @@
         }
 
         .header-logo img {
-            height: 40px; /* Ajuste la taille de ton logo */
+            height: 40px;
             margin-right: 15px;
         }
 
@@ -131,7 +118,6 @@
             font-weight: 500;
         }
 
-        /* --- Ticker / Bandeau --- */
         .ticker-section {
             background: var(--white);
             color: var(--dark-bg);
@@ -139,14 +125,14 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             margin: 2.5rem 0;
             padding: 1.5rem 0;
-            overflow: hidden; /* Cache le texte qui dépasse */
+            overflow: hidden;
             width: 100%;
         }
 
         .ticker-content {
-            display: inline-block; /* Permet à l'animation de fonctionner */
-            white-space: nowrap; /* Empêche le retour à la ligne */
-            padding-left: 100%; /* Commence en dehors de l'écran */
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
             animation: ticker-slide 30s linear infinite;
         }
 
@@ -161,17 +147,15 @@
 
         @keyframes ticker-slide {
             0% { transform: translateX(0%); }
-            100% { transform: translateX(-150%); } /* Ajuste la distance de défilement */
+            100% { transform: translateX(-150%); }
         }
 
-        /* --- Contenu Principal (Sites) --- */
         main {
             flex-grow: 1;
             width: 100%;
             display: flex;
         }
         
-        /* La partie gauche avec les sites (sur le fond sombre) */
         .sites-panel {
             flex-basis: 55%;
             padding-right: 2rem;
@@ -186,7 +170,6 @@
 
         .sites-grid {
             display: grid;
-            /* Crée 3 colonnes, mais s'adapte en dessous */
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
         }
@@ -234,7 +217,6 @@
             transform: translateX(5px);
         }
         
-        /* La partie droite (sur le fond gradient) */
         .welcome-panel {
             flex-basis: 45%;
             padding-left: 2rem;
@@ -266,7 +248,6 @@
             color: var(--dark-bg);
         }
 
-        /* --- Footer --- */
         footer {
             width: 100%;
             text-align: center;
@@ -276,19 +257,15 @@
             flex-shrink: 0;
         }
 
-        /* ======================================= */
-        /* RESPONSIVE DESIGN
-        /* ======================================= */
         @media (max-width: 900px) {
             body {
-                /* Sur mobile, on simplifie le fond */
                 background: var(--dark-bg);
             }
             .page-container {
                 padding: 1rem 5%;
             }
             main {
-                flex-direction: column; /* Empile les colonnes */
+                flex-direction: column;
             }
             .sites-panel {
                 flex-basis: auto;
@@ -304,7 +281,7 @@
                 margin-bottom: 2rem;
             }
             .header-logo span {
-                display: none; /* Cache le texte du header sur petit écran */
+                display: none;
             }
             .ticker-section {
                 margin: 1.5rem 0;
@@ -315,10 +292,6 @@
 </head>
 <body>
 
-    <!-- =======================
-         ÉTAT DE CHARGEMENT
-         S'affiche en premier.
-    ======================== -->
     <div id="loading-state" class="auth-container">
         <div class="auth-box">
             <i class="fas fa-spinner spinner"></i>
@@ -326,10 +299,6 @@
         </div>
     </div>
 
-    <!-- =======================
-         ÉTAT DÉCONNECTÉ
-         S'affiche si l'utilisateur n'est pas connecté.
-    ======================== -->
     <div id="logged-out-state" class="auth-container hidden">
         <div class="auth-box">
             <h1>Accès Administrateur</h1>
@@ -340,22 +309,15 @@
         </div>
     </div>
 
-    <!-- ==============================================
-         ÉTAT CONNECTÉ (LE HUB ETNA)
-         S'affiche SEULEMENT si l'utilisateur est connecté.
-    =============================================== -->
     <div id="logged-in-state" class="page-container hidden">
 
-        <!-- --- Header --- -->
         <header>
             <div class="header-logo">
-                <!-- Remplace par ton logo -->
                 <img src="ressources/logo.png" alt="Logo Skynium">
                 <span>Skynium ETNA, (Espace de Travail Numérique pour les membres de l'Administration)</span>
             </div>
         </header>
 
-        <!-- --- Ticker / Bandeau --- -->
         <section class="ticker-section">
             <div class="ticker-content">
                 <b>Bienvenue sur Skynium ETNA, la plateforme des administrateurs.</b>
@@ -369,14 +331,11 @@
             </div>
         </section>
 
-        <!-- --- Contenu Principal (Sites) --- -->
         <main>
-            <!-- Colonne de Gauche -->
             <section class="sites-panel">
                 <h1>Sites</h1>
                 <div class="sites-grid">
                     
-                    <!-- Bouton 1 -->
                     <a href="https://skynium.fr" class="site-button">
                         <span>Skynium</span>
                         <i class="fas fa-arrow-right"></i>
@@ -385,7 +344,10 @@
                         </div>
                     </a>
 
+<<<<<<< Updated upstream
                     <!-- Bouton 2 -->
+=======
+>>>>>>> Stashed changes
                     <a href="https://ksuite.skynium-ksuite.fr/" class="site-button">
                         <span>Skynium kSuite</span>
                         <i class="fas fa-arrow-right"></i>
@@ -394,7 +356,10 @@
                         </div>
                     </a>
                     
+<<<<<<< Updated upstream
                     <!-- Bouton 5 -->
+=======
+>>>>>>> Stashed changes
                     <a href="https://e-reservation.skynium.fr" class="site-button">
                         <span>E-Reservation</span>
                         <i class="fas fa-arrow-right"></i>
@@ -403,7 +368,10 @@
                         </div>
                     </a>
                     
+<<<<<<< Updated upstream
                     <!-- Bouton 6 -->
+=======
+>>>>>>> Stashed changes
                     <a href="https://abovetheskyproductions.skynium.fr" class="site-button">
                         <span>Above The Sky</span>
                         <i class="fas fa-arrow-right"></i>
@@ -416,7 +384,31 @@
                         <span>mySkynium</span>
                         <i class="fas fa-arrow-right"></i>
                         <div class="site-button-logo">
-                            <img src="ressources/logo.png" alt="Logo ATS">
+                            <img src="ressources/logo.png" alt="Logo Skynium">
+                        </div>
+                    </a>
+
+                    <a href="https://iris.skynium.fr" class="site-button">
+                        <span>Skynium IRIS</span>
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="site-button-logo">
+                            <img src="ressources/logo.png" alt="Logo Skynium">
+                        </div>
+                    </a>
+
+                    <a href="https://logs.etna.skynium.fr" class="site-button">
+                        <span>Skynium LOGS</span>
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="site-button-logo">
+                            <img src="ressources/logo.png" alt="Logo Skynium">
+                        </div>
+                    </a>
+
+                    <a href="https://devis.etna.skynium.fr" class="site-button">
+                        <span>Skynium ETNA - Devis</span>
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="site-button-logo">
+                            <img src="ressources/logo.png" alt="Logo Skynium">
                         </div>
                     </a>
 
@@ -431,7 +423,6 @@
                 </div>
             </section>
 
-            <!-- Colonne de Droite (vide sur la capture, mais utile) -->
             <section class="welcome-panel">
                 <h2>Bonjour, <span id="user-name">Utilisateur</span> !</h2>
                 <p>Bienvenue sur votre espace de travail. Vous trouverez ici tous les accès rapides à vos outils d'administration.</p>
@@ -440,37 +431,25 @@
 
         </main>
 
-        <!-- --- Footer --- -->
         <footer>
             Skynium® et toutes ses marques, tous droits réservés, 2019 - 2026
         </footer>
     </div>
 
 
-    <!-- =======================
-         LE JAVASCRIPT SSO
-         Gère le blocage de la page
-    ======================== -->
     <script>
-        // Déclaration du client Auth0
         let auth0Client = null;
 
-        // Configuration (REMPLIS CECI AVEC TES INFOS AUTH0)
         const authConfig = {
-            // Utilise ton "Custom Domain" pour le service
             domain: "auth.skynium.fr", 
             
-            // !! REMPLIS CECI !! Ton Client ID (de ton app SPA dans Auth0)
             clientId: "usnKSbJvl7YPVg8XAfqwZGsCYrLqMo6y", 
             
-            // L'URL de ce Hub (l'application)
             redirectUri: "https://etna.skynium.fr/" 
         };
 
-        // Fonction principale au chargement de la page
         document.addEventListener("DOMContentLoaded", async () => {
             
-            // 1. Initialiser le client
             try {
                 auth0Client = await auth0.createAuth0Client({
                     domain: authConfig.domain,
@@ -481,13 +460,11 @@
                 });
             } catch (e) {
                 console.error("Erreur d'initialisation Auth0", e);
-                // Si Auth0 ne se charge pas, on montre l'écran de déconnexion
                 document.getElementById("loading-state").classList.add("hidden");
                 document.getElementById("logged-out-state").classList.remove("hidden");
                 return;
             }
 
-            // 2. Gérer le retour de redirection après connexion
             if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
                 try {
                     await auth0Client.handleRedirectCallback();
@@ -495,41 +472,31 @@
                     console.error("Erreur HandleRedirectCallback", e);
                 }
                 
-                // Nettoyer l'URL
                 window.history.replaceState({}, document.title, "/");
             }
 
-            // 3. Mettre à jour l'interface utilisateur
             await updateUI();
 
-            // 4. Lier les boutons
             document.getElementById("login-button").addEventListener("click", login);
             document.getElementById("logout-button").addEventListener("click", logout);
         });
 
-        // Fonction de mise à jour de l'UI
         const updateUI = async () => {
             const loadingEl = document.getElementById("loading-state");
             const loggedOutEl = document.getElementById("logged-out-state");
             const loggedInEl = document.getElementById("logged-in-state");
 
             try {
-                // C'est ici que la magie du SSO opère
                 const isAuthenticated = await auth0Client.isAuthenticated();
 
                 if (isAuthenticated) {
-                    // SI CONNECTÉ
                     const userProfile = await auth0Client.getUser();
                     
-                    // Personnalise l'accueil
                     document.getElementById("user-name").innerText = userProfile.name || userProfile.email;
                     
-                    // Affiche le HUB ETNA
                     loggedInEl.classList.remove("hidden");
                 
                 } else {
-                    // SI DÉCONNECTÉ
-                    // Affiche le bouton de connexion
                     loggedOutEl.classList.remove("hidden");
                 }
 
@@ -537,12 +504,10 @@
                 console.error("Erreur UpdateUI", e);
                 loggedOutEl.classList.remove("hidden");
             } finally {
-                // Cache l'écran de chargement dans tous les cas
                 loadingEl.classList.add("hidden");
             }
         };
 
-        // Fonction de connexion
         const login = async () => {
             try {
                 await auth0Client.loginWithRedirect();
@@ -551,12 +516,11 @@
             }
         };
 
-        // Fonction de déconnexion
         const logout = () => {
             try {
                 auth0Client.logout({
                     logoutParams: {
-                        returnTo: authConfig.redirectUri // Retourne à cette même page
+                        returnTo: authConfig.redirectUri
                     }
                 });
             } catch (e) {
